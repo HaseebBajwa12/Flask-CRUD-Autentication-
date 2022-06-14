@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center">Login page</h1>
+<div class="container">
+    <form class="form-login" method="POST" style="color:white" novalidate>
+        {{form.hidden_tag()}}
+        {{form.username.label()}}
+        {{form.username(class='form-control',placeholder='User Name')}}
+        {{form.password.label()}}
+        {{form.password(class='form-control',placeholder='Password')}}
+        <br>
+        <div class="checkbox mb-3 text-center">
+            <br>
+            <h6>Do not have an Account ?</h6>
+            <a class="btn btn-sm btn-secondary"  href="{{ url_for('register_page') }}">Register</a>
+
+        </div>
+             <br>
+        {{form.submit(class='form-control btn btn-block btn-lg btn-success')}}
+
+
+    </form>
+
+</div>
+{% endblock %}

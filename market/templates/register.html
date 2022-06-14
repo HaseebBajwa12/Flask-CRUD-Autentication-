@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center h3 mb-3 font-weight-normal">Register Yourself !</h1>
+<div class="container">
+    <form class="form-register" method="POST" style="color:white" novalidate>
+        {{form.hidden_tag()}}
+        {{form.username.label()}}
+        {{form.username(class='form-control',placeholder='User Name')}}
+        {{form.email_address.label()}}
+        {{form.email_address(class='form-control',placeholder='Email Address')}}
+        {{form.password1.label()}}
+        {{form.password1(class='form-control',placeholder='Password')}}
+        {{form.password2.label()}}
+        {{form.password2(class='form-control',placeholder='confirm password')}}
+        <br>
+           <div class="checkbox mb-3 text-center">
+            <br>
+            <h6>Already Have an Account ?</h6>
+            <a class="btn btn-sm btn-secondary"  href="{{ url_for('login_page') }}">Login</a>
+
+        </div>
+        <div class="text-center">
+        {{form.submit(class='btn btn-lg btn-block btn-primary form-control')}}
+        </div>
+
+    </form>
+
+</div>
+{% endblock %}

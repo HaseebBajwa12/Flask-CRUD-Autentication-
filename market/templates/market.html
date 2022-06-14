@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row" style="margin-top:20px;margin-left:20px">
+    <div class="col-8">
+<!--        <h2>Available items in the Market</h2>-->
+<!--        <p>Click on the items for buying</p>-->
+        <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add New Items
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="exampleModalLabel">Add Item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{ url_for('insert') }}" method="POST">
+            <div class="form-group">
+              <label class="text-dark">Name:</label>
+                <input type="text" name="name" class="form-control">
+
+            </div>
+            <div class="form-group">
+              <label class="text-dark">Price:</label>
+                <input type="text" name="price" class="form-control">
+
+            </div>
+              <div class="form-group">
+              <label class="text-dark">Barcode:</label>
+                <input type="text" name="barcode" class="form-control">
+
+            </div>
+              <div class="form-group">
+              <label class="text-dark">Description:</label>
+                <input type="text" name="description" class="form-control">
+
+            </div>
+            <div class="form-group">
+                <label class="text-dark">Owner:</label>
+                <select name="owner" method="GET" action="{{url_for('market_page')}}">
+              {% for user in users %}
+             <option value="{{user}}" SELECTED>{{user}}</option>
+           {% endfor %}
+              </select>
+
+            </div>
+
+            <br>
+            <div class="form-group">
+           <button type="submit" class="btn btn-primary">Add</button>
+
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+<table class="table table-hover table-dark">
+        <thead>
+            <tr>
+                <!-- Your Columns HERE -->
+                <th scope="col">ID</th>
+                <th scope="col">Name</th>
+                <th scope="col">Barcode</th>
+                <th scope="col">Price</th>
+                <th scope="col">Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Your rows inside the table HERE: -->
+            {% for item in items %}
+                <tr>
+                    <td>{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.barcode }}</td>
+                    <td>{{ item.price }}$</td>
+                    <td>
+                        <a href="/update/{{item.id}}"  class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#exampleModal1{{item.id}}">
+  Edit
+</a>
+                        <div class="modal fade" id="exampleModal1{{item.id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title text-dark" id="exampleModalLabel1">Update item</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form action="{{url_for('update')}}" method="post">
+            <div class="form-group">
+              <label class="text-dark">Name:</label>
+                <input type="hidden" name="id" value="{{item.id}}">
+                <input type="text" name="name" class="form-control" value="{{item.name}}">
+
+            </div>
+            <div class="form-group">
+              <label class="text-dark">Price:</label>
+                <input type="text" name="price" class="form-control" value="{{item.price}}">
+
+            </div>
+              <div class="form-group">
+              <label class="text-dark">Barcode:</label>
+                <input type="text" name="barcode" class="form-control" value="{{item.barcode}}">
+
+            </div>
+              <div class="form-group">
+              <label class="text-dark">Description:</label>
+                <input type="text" name="description" class="form-control" value="{{item.description}}">
+
+            </div>
+<!--            <div class="form-group">-->
+<!--                <label class="text-dark">Owner:</label>-->
+<!--                <select name="owner" method="GET" action="{{url_for('market_page')}}">-->
+<!--              {% for user in users %}-->
+<!--             <option value="{{user}}" SELECTED>{{user}}</option>-->
+<!--           {% endfor %}-->
+<!--              </select>-->
+
+<!--            </div>-->
+
+            <br>
+            <div class="form-group">
+           <button type="submit" class="btn btn-primary">Update</button>
+
+            </div>
+
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+
+      </div>
+    </div>
+  </div>
+</div>
+                        <a  href="/delete/{{item.id}}" class="btn btn-outline btn-danger">Delete</a>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    </div>
+
+ {% endblock  %}
